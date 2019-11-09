@@ -10,6 +10,8 @@ namespace filescan
     {
         static void Main(string[] args)
         {
+
+            MenuProgramu.StartMenuProgramu();
         }
     }
 }
