@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace filescan
 {
@@ -12,6 +13,7 @@ namespace filescan
         public static void StartMenuProgramu()
         {
             Console.Title = " Menu Programu ";
+            string url = "https://www.w3.org/TR/PNG/iso_8859-1.txt";
 
             while (true)
             {
@@ -27,7 +29,7 @@ namespace filescan
                 switch (klawisz.Key)
                 {
                     case ConsoleKey.D1:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); downloadFile(url); break;
                     case ConsoleKey.D2:
                         Console.Clear(); opcjawbudowie(); break;
                     case ConsoleKey.Escape:
@@ -48,7 +50,14 @@ namespace filescan
         {
             Console.Write("Opcja w budowie ! ");
             Console.ReadKey();
-   }
+         }
+
+        static void downloadFile(string url)
+        {
+            string file = System.IO.Path.GetFileName(url);
+            WebClient cln = new WebClient();
+            cln.DownloadFile(url, file);
+        }
 
     }
 }
