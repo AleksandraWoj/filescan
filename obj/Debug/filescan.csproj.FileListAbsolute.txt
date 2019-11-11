@@ -4,3 +4,9 @@ C:\Users\48534\source\repos\filescan\bin\Debug\filescan.pdb
 C:\Users\48534\source\repos\filescan\obj\Debug\filescan.csprojAssemblyReference.cache
 C:\Users\48534\source\repos\filescan\obj\Debug\filescan.exe
 C:\Users\48534\source\repos\filescan\obj\Debug\filescan.pdb
+C:\Users\meshu\Desktop\filescan\bin\Debug\filescan.exe.config
+C:\Users\meshu\Desktop\filescan\bin\Debug\filescan.exe
+C:\Users\meshu\Desktop\filescan\bin\Debug\filescan.pdb
+C:\Users\meshu\Desktop\filescan\obj\Debug\filescan.csprojAssemblyReference.cache
+C:\Users\meshu\Desktop\filescan\obj\Debug\filescan.exe
+C:\Users\meshu\Desktop\filescan\obj\Debug\filescan.pdb
