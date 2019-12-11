@@ -63,7 +63,7 @@ namespace filescan
                     case ConsoleKey.D1:
                         Console.Clear(); DownloadFile(url); break;
                     case ConsoleKey.D2:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); LettersCounter(); break;
                     case ConsoleKey.D3:
                         Console.Clear(); WordsCounter(); break;
                     case ConsoleKey.D4:
@@ -176,6 +176,27 @@ namespace filescan
                 return 0;
             }
             
+
+        }
+
+        public int LettersCounter()
+        {
+            if (File.Exists(FullFilePath))
+            {
+                string fileContent = File.ReadAllText(FullFilePath);
+                int letterAmount = fileContent.Length;
+                Console.WriteLine($"Total number of letter in file {letterAmount}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+                return letterAmount;
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist!}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+                return 0;
+            }
 
         }
 
