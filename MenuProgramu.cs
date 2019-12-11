@@ -47,28 +47,34 @@ namespace filescan
             {
                 Console.Clear();
                 Console.WriteLine("1. Pobranie pliku z internetu");
-                Console.WriteLine("2. Liczba wyrazów");
-                Console.WriteLine("3. Liczba znaków interpunkcyjnych ");
-                Console.WriteLine("4. Liczba zdań w pliku ");
-                Console.WriteLine("5. Raport użycia A-Z ");
-                Console.WriteLine("6. Koniec programu");
+                Console.WriteLine("2. Liczba liter");
+                Console.WriteLine("3. liczba wyrazow w pliku");
+                Console.WriteLine("4. Liczba znaków interpunkcyjnych ");
+                Console.WriteLine("5. Liczba zdań w pliku ");
+                Console.WriteLine("6. Raport użycia A-Z ");
+                Console.WriteLine("7. Zapis statystyk z pkt 2-5 do pliku .txt ");
+                Console.WriteLine("8. Koniec programu");
 
                 ConsoleKeyInfo klawisz = Console.ReadKey();
                 switch (klawisz.Key)
                 {
                     case ConsoleKey.D1:
-                        Console.Clear(); pobraniePliku(url); break;
+                        Console.Clear(); DownloadFile(url); break;
                     case ConsoleKey.D2:
                         Console.Clear(); opcjawbudowie(); break;
-                    case ConsoleKey.Escape:
                     case ConsoleKey.D3:
-                        Console.Clear(); GetPunctuationMarks(); break;
+                        Console.Clear(); WordsCounter(); break;
                     case ConsoleKey.D4:
-                        Console.Clear(); GetNumberOfSentences(); break;
+                        Console.Clear(); GetPunctuationMarks(); break;
                     case ConsoleKey.D5:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); GetNumberOfSentences(); break;
                     case ConsoleKey.D6:
+                        Console.Clear(); opcjawbudowie(); break;
+                    case ConsoleKey.D7:
+                        Console.Clear(); opcjawbudowie(); break;
+                    case ConsoleKey.D8:
                         Environment.Exit(0); break;
+                    case ConsoleKey.Escape:
                     default: break;
                 }
             }
@@ -78,13 +84,14 @@ namespace filescan
             Console.ReadKey();
          }
 
-        public void pobraniePliku(string url)
+        public void DownloadFile(string url)
             {
-            // plik pobiera sie do filescan\bin\Debug
+            
 
             WebClient webClient = new WebClient();
             webClient.DownloadFile(url, FullFilePath);
             Console.WriteLine("File has been downloaded...");
+            Console.WriteLine("Press key to continue!");
             Console.ReadKey();
         }
 
@@ -144,6 +151,30 @@ namespace filescan
                 Console.ReadKey();
                 return 0;
             }
+        }
+
+        public int WordsCounter()
+        {
+            if (File.Exists(FullFilePath))
+            {
+                var fileContent = File.ReadAllText(FullFilePath);
+                char[] separator = { ' ' };
+
+                int wordsCount = fileContent.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
+                Console.WriteLine($"Total number of words in file {wordsCount}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+                return wordsCount;
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist!}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+                return 0;
+            }
+            
+
         }
 
     }
