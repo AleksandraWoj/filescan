@@ -46,6 +46,7 @@ namespace filescan
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("===============================================");
                 Console.WriteLine("1. Pobranie pliku z internetu");
                 Console.WriteLine("2. Liczba liter");
                 Console.WriteLine("3. liczba wyrazow w pliku");
@@ -54,6 +55,7 @@ namespace filescan
                 Console.WriteLine("6. Raport użycia A-Z ");
                 Console.WriteLine("7. Zapis statystyk z pkt 2-5 do pliku .txt ");
                 Console.WriteLine("8. Koniec programu");
+                Console.WriteLine("===============================================");
 
                 ConsoleKeyInfo klawisz = Console.ReadKey();
                 switch (klawisz.Key)
