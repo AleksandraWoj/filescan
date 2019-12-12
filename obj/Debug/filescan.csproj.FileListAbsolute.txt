@@ -17,3 +17,11 @@ C:\Users\HP\source\repos\filescan\obj\Debug\filescan.csprojAssemblyReference.cac
 C:\Users\HP\source\repos\filescan\obj\Debug\filescan.csproj.CoreCompileInputs.cache
 C:\Users\HP\source\repos\filescan\obj\Debug\filescan.exe
 C:\Users\HP\source\repos\filescan\obj\Debug\filescan.pdb
+C:\Users\48534\Desktop\filescna\filescan\bin\Debug\filescan.exe.config
+C:\Users\48534\Desktop\filescna\filescan\bin\Debug\filescan.exe
+C:\Users\48534\Desktop\filescna\filescan\bin\Debug\filescan.pdb
+C:\Users\48534\Desktop\filescna\filescan\obj\Debug\filescan.csprojAssemblyReference.cache
+C:\Users\48534\Desktop\filescna\filescan\obj\Debug\filescan.exe
+C:\Users\48534\Desktop\filescna\filescan\obj\Debug\filescan.pdb
+C:\Users\HP\source\repos\filescan\bin\Debug\System.Text.RegularExpressions.dll
+C:\Users\HP\source\repos\filescan\obj\Debug\filescan.csproj.CopyComplete

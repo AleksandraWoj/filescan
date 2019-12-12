@@ -20,18 +20,46 @@ namespace filescan
         #region Properties
 
         /// <summary>
+        ///     Gets / sets the number of punctuation marks in file
+        /// </summary>
+        public int CountPunctMark { get; set; }
+
+        /// <summary>
+        ///     Gets / sets the number sentences in file
+        /// </summary>
+        public int CountSentences { get; set; }
+
+        /// <summary>
+        ///     Gets / sets the number of words in file
+        /// </summary>
+        public int WordsCount { get; set; }
+
+        /// <summary>
+        ///     Gets / sets the number leters in file
+        /// </summary>
+        public int LetterAmount { get; set; }
+
+        /// <summary>
         ///     Gets or sets the file name 
         /// </summary>
         public string FileName { get; set; } = "textfile.txt";
 
         /// <summary>
-        /// Gets or sets the full file path
+        ///     Gets or sets the full file path
         /// </summary>
-        public string FullFilePath
+        public string FullDownloadFilePath
         {
             get
             {
                 return  Path.Combine(userEnviromentFilePath, "Downloads", FileName);
+            }
+        }
+
+        public string StatisticsFilePath
+        {
+            get
+            {
+                return Path.Combine(userEnviromentFilePath, "staistics.txt");
             }
         }
         #endregion
@@ -46,6 +74,7 @@ namespace filescan
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine("===============================================");
                 Console.WriteLine("1. Pobranie pliku z internetu");
                 Console.WriteLine("2. Liczba liter");
                 Console.WriteLine("3. liczba wyrazow w pliku");
@@ -54,6 +83,7 @@ namespace filescan
                 Console.WriteLine("6. Raport użycia A-Z ");
                 Console.WriteLine("7. Zapis statystyk z pkt 2-5 do pliku .txt ");
                 Console.WriteLine("8. Koniec programu");
+                Console.WriteLine("===============================================");
 
                 ConsoleKeyInfo klawisz = Console.ReadKey();
                 switch (klawisz.Key)
@@ -61,7 +91,7 @@ namespace filescan
                     case ConsoleKey.D1:
                         Console.Clear(); DownloadFile(url); break;
                     case ConsoleKey.D2:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); LettersCounter(); break;
                     case ConsoleKey.D3:
                         Console.Clear(); WordsCounter(); break;
                     case ConsoleKey.D4:
@@ -71,7 +101,7 @@ namespace filescan
                     case ConsoleKey.D6:
                         Console.Clear(); opcjawbudowie(); break;
                     case ConsoleKey.D7:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); SaveStatistics(); break;
                     case ConsoleKey.D8:
                         Console.Clear(); CloseApp(); break;
                     case ConsoleKey.Escape:
@@ -89,99 +119,143 @@ namespace filescan
             
 
             WebClient webClient = new WebClient();
-            webClient.DownloadFile(url, FullFilePath);
+            webClient.DownloadFile(url, FullDownloadFilePath);
             Console.WriteLine("File has been downloaded...");
             Console.WriteLine("Press key to continue!");
             Console.ReadKey();
         }
 
         /// <summary>
+        ///     Save the statistics to file
+        /// </summary>
+        public void WriteToFile()
+        {
+            using (StreamWriter sw = File.CreateText(StatisticsFilePath))
+            {
+                sw.WriteLine($"Number of punctuation marks : {CountPunctMark}");
+                sw.WriteLine($"Number of sentences: {CountSentences}");
+                sw.WriteLine($"Number of words: {WordsCount}");
+                sw.WriteLine($"Number of leters : {LetterAmount}");
+            }
+        }
+
+        /// <summary>
+        ///     Edit or creat statistics file
+        /// </summary>
+        public void SaveStatistics()
+        {
+            if (File.Exists(StatisticsFilePath))
+            {
+                Console.WriteLine($"File already exists at: {StatisticsFilePath}");
+                Console.WriteLine("to delete file and creat new one press 'y' " +
+                    "to override file press 'o', any key to skip:");
+                string input = Console.ReadLine();
+                if (input.Equals("y"))
+                {
+                    File.Delete(StatisticsFilePath);
+                    WriteToFile();
+                }
+                else if(input.Equals("o"))
+                {
+                    Console.WriteLine("Clearing file.\nSaving...");;
+                    File.WriteAllText(StatisticsFilePath, string.Empty);
+                    WriteToFile();
+                }
+                Console.WriteLine("Unrecognized input, please try again!");
+            }
+        }
+
+        /// <summary>
         ///     Count number of punctuation marks in the file
         /// </summary>
-        /// <returns>
-        ///     The number of punctuation marks 
-        /// </returns>
-        public int GetPunctuationMarks()
+        public void GetPunctuationMarks()
         {
-            if (File.Exists(FullFilePath))
+            if (File.Exists(FullDownloadFilePath))
             {
-                var fileContent = File.ReadAllText(FullFilePath);
+                var fileContent = File.ReadAllText(FullDownloadFilePath);
 
-                var countPunctMark = fileContent.ToString()
+                CountPunctMark = fileContent.ToString()
                                     .Where(x => char.IsPunctuation(x))
                                     .Count();
                 
-                Console.WriteLine($"Total number of Punctuation Marks in file: {countPunctMark}");
+                Console.WriteLine($"Total number of Punctuation Marks in file: {CountPunctMark}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return countPunctMark;
             }
             else
             {
                 Console.WriteLine("The file does not exist!}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return 0;
             }
         }
 
         /// <summary>
         ///     Count number of sentences in the file
         /// </summary>
-        /// <returns>
-        ///     The number of sentences 
-        /// </returns>
-        public int GetNumberOfSentences()
+        public void GetNumberOfSentences()
         {
-            if(File.Exists(FullFilePath))
+            if(File.Exists(FullDownloadFilePath))
             {
-                var fileContent = File.ReadAllText(FullFilePath);
+                var fileContent = File.ReadAllText(FullDownloadFilePath);
                 var regex = new Regex(@"(?<=[\.!\?])\s+");
-                var countSentences =  regex.Split(fileContent.ToString()).ToList().Count;
+                CountSentences =  regex.Split(fileContent.ToString()).ToList().Count;
 
-                Console.WriteLine($"Total number of sentences if file {countSentences}");
+                Console.WriteLine($"Total number of sentences if file {CountSentences}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return countSentences;
             }
             else
             {
                 Console.WriteLine("The file does not exist!}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return 0;
             }
         }
 
-        public int WordsCounter()
+        public void WordsCounter()
         {
-            if (File.Exists(FullFilePath))
+            if (File.Exists(FullDownloadFilePath))
             {
-                var fileContent = File.ReadAllText(FullFilePath);
+                var fileContent = File.ReadAllText(FullDownloadFilePath);
                 char[] separator = { ' ' };
 
-                int wordsCount = fileContent.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
-                Console.WriteLine($"Total number of words in file {wordsCount}");
+                WordsCount = fileContent.Split(separator, StringSplitOptions.RemoveEmptyEntries).Length;
+                Console.WriteLine($"Total number of words in file {WordsCount}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return wordsCount;
             }
             else
             {
                 Console.WriteLine("The file does not exist!}");
                 Console.WriteLine("Press key to continue!");
                 Console.ReadKey();
-                return 0;
             }
-            
+        }
 
+        public void LettersCounter()
+        {
+            if (File.Exists(FullDownloadFilePath))
+            {
+                string fileContent = File.ReadAllText(FullDownloadFilePath);
+                LetterAmount = fileContent.Length;
+                Console.WriteLine($"Total number of letter in file {LetterAmount}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("The file does not exist!}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+            }
         }
 
         public void CloseApp()
         {
-            if (File.Exists(FullFilePath))
+            if (File.Exists(FullDownloadFilePath))
             {
-                File.Delete(FullFilePath);
+                File.Delete(FullDownloadFilePath);
                 Console.WriteLine("The file has been DELETED!");
                 Console.WriteLine("Press key to close program");
                 Console.ReadKey();
@@ -196,6 +270,7 @@ namespace filescan
                 System.Environment.Exit(0);
             }
         }
+
 
     }
 }
