@@ -73,7 +73,7 @@ namespace filescan
                     case ConsoleKey.D7:
                         Console.Clear(); opcjawbudowie(); break;
                     case ConsoleKey.D8:
-                        Environment.Exit(0); break;
+                        Console.Clear(); CloseApp(); break;
                     case ConsoleKey.Escape:
                     default: break;
                 }
@@ -175,6 +175,26 @@ namespace filescan
             }
             
 
+        }
+
+        public void CloseApp()
+        {
+            if (File.Exists(FullFilePath))
+            {
+                File.Delete(FullFilePath);
+                Console.WriteLine("The file has been DELETED!");
+                Console.WriteLine("Press key to close program");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+
+            }
+            else
+            {
+                Console.WriteLine("The file does not EXISTS!");
+                Console.WriteLine("Press key to close program");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+            }
         }
 
     }
