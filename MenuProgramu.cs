@@ -103,7 +103,7 @@ namespace filescan
                     case ConsoleKey.D7:
                         Console.Clear(); SaveStatistics(); break;
                     case ConsoleKey.D8:
-                        Environment.Exit(0); break;
+                        Console.Clear(); CloseApp(); break;
                     case ConsoleKey.Escape:
                     default: break;
                 }
@@ -261,5 +261,28 @@ namespace filescan
                 Console.ReadKey();
             }
         }
+
+        public void CloseApp()
+        {
+            if (File.Exists(FullDownloadFilePath))
+            {
+                File.Delete(FullDownloadFilePath);
+                File.Delete(StatisticsFilePath);
+                Console.WriteLine("The files has been DELETED!");
+                Console.WriteLine("Press key to close program");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+
+            }
+            else
+            {
+                Console.WriteLine("The files does not EXISTS!");
+                Console.WriteLine("Press key to close program");
+                Console.ReadKey();
+                System.Environment.Exit(0);
+            }
+        }
+
+
     }
 }
