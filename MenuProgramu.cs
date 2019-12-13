@@ -99,7 +99,7 @@ namespace filescan
                     case ConsoleKey.D5:
                         Console.Clear(); GetNumberOfSentences(); break;
                     case ConsoleKey.D6:
-                        Console.Clear(); opcjawbudowie(); break;
+                        Console.Clear(); OccurencesOfChar(); break;
                     case ConsoleKey.D7:
                         Console.Clear(); SaveStatistics(); break;
                     case ConsoleKey.D8:
@@ -281,6 +281,29 @@ namespace filescan
                 Console.ReadKey();
                 System.Environment.Exit(0);
             }
+        }
+
+        public void OccurencesOfChar()
+        {
+            string input = File.ReadAllText(FullDownloadFilePath);
+
+            Console.WriteLine(FullDownloadFilePath.Length);
+            while (input.Length > 0)
+            {
+                Console.Write(input[0] + " : ");
+                int count = 0;
+                for (int j = 0; j < input.Length; j++)
+                {
+                    if (input[0] == input[j])
+                    {
+                        count++;
+                    }
+                }
+                Console.WriteLine(count);
+                input = input.Replace(input[0].ToString(), string.Empty);
+            }
+            Console.ReadLine();
+
         }
 
 
