@@ -162,6 +162,17 @@ namespace filescan
                     WriteToFile();
                 }
                 Console.WriteLine("Unrecognized input, please try again!");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.\nCreating File...");
+                WriteToFile();
+                Console.WriteLine($"Log file Created at: {StatisticsFilePath}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+
             }
         }
 
@@ -256,7 +267,8 @@ namespace filescan
             if (File.Exists(FullDownloadFilePath))
             {
                 File.Delete(FullDownloadFilePath);
-                Console.WriteLine("The file has been DELETED!");
+                File.Delete(StatisticsFilePath);
+                Console.WriteLine("The files has been DELETED!");
                 Console.WriteLine("Press key to close program");
                 Console.ReadKey();
                 System.Environment.Exit(0);
@@ -264,7 +276,7 @@ namespace filescan
             }
             else
             {
-                Console.WriteLine("The file does not EXISTS!");
+                Console.WriteLine("The files does not EXISTS!");
                 Console.WriteLine("Press key to close program");
                 Console.ReadKey();
                 System.Environment.Exit(0);
