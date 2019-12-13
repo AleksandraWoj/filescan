@@ -162,6 +162,17 @@ namespace filescan
                     WriteToFile();
                 }
                 Console.WriteLine("Unrecognized input, please try again!");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.\nCreating File...");
+                WriteToFile();
+                Console.WriteLine($"Log file Created at: {StatisticsFilePath}");
+                Console.WriteLine("Press key to continue!");
+                Console.ReadKey();
+
             }
         }
 
